@@ -1,6 +1,7 @@
 package org.gooddog.producerconsumermetrics.consumer;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -22,10 +23,13 @@ public class ConsumerConfig {
         factory.setConsumerFactory(consumerFactory);
         return factory;
     }
-    @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerProps());
-    }
+
+@Bean
+public ConsumerFactory<String, String> consumerFactory(DefaultKafkaConsumerFactoryCustomizer customizer) {
+    DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps());
+    customizer.customize(consumerFactory);
+    return consumerFactory;
+}
 
     private Map<String, Object> consumerProps() {
         Map<String, Object> props = new HashMap<>();

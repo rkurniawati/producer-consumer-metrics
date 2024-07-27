@@ -21,8 +21,10 @@ public class ProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(senderProps());
+    public ProducerFactory<String, String> producerFactory(DefaultKafkaProducerFactoryCustomizer customizer) {
+        DefaultKafkaProducerFactory<String, String> producerFactory = new DefaultKafkaProducerFactory<>(senderProps());
+        customizer.customize(producerFactory);
+        return producerFactory;
     }
 
     private Map<String, Object> senderProps() {
