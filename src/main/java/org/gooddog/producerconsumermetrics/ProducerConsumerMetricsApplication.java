@@ -11,8 +11,8 @@ public class ProducerConsumerMetricsApplication {
         SpringApplication.run(ProducerConsumerMetricsApplication.class, args);
     }
 
-    @KafkaListener(id = "myListener", topics = "test-topic")
+    @KafkaListener(id = "myListener", topics = "test-topic", containerFactory = "myListenerFactory")
     public void myListener(String str) {
-        System.out.println("Received: " + str);
+        System.out.println(str);
     }
 }
