@@ -24,12 +24,12 @@ public class ConsumerConfig {
         return factory;
     }
 
-@Bean
-public ConsumerFactory<String, String> consumerFactory(DefaultKafkaConsumerFactoryCustomizer customizer) {
-    DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps());
-    customizer.customize(consumerFactory);
-    return consumerFactory;
-}
+    @Bean
+    public ConsumerFactory<String, String> consumerFactory(DefaultKafkaConsumerFactoryCustomizer customizer) {
+        DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps());
+        customizer.customize(consumerFactory);
+        return consumerFactory;
+    }
 
     private Map<String, Object> consumerProps() {
         Map<String, Object> props = new HashMap<>();
